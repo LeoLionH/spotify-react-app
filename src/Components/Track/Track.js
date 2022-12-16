@@ -10,34 +10,40 @@ export class Track extends React.Component {
     }
 
     addTrack() {
-        console.log('add track fired');
         this.props.onAdd(this.props.track);
     }
 
     removeTrack() {
-        console.log('remove track fired');
         this.props.onRemove(this.props.track);
     }
-    
+
     renderAction(isRemoval) {
-        if(isRemoval) return <button className="Track-action" onClick={this.removeTrack}>-</button>;
-        else return <button className="Track-action" onClick={this.addTrack}>+</button>
+        if (isRemoval === "true") return <button className="Track-action" onClick={this.removeTrack}>-</button>;
+        if (isRemoval === "false") return <button className="Track-action" onClick={this.addTrack}>+</button>
     }
 
     render() {
-        let getButton = this.renderAction(this.props.isRemoval)
-        return(
+        let getButton = this.renderAction(this.props.isRemoval);
+        let nameShortened = (trackname, num) => {
+            if (trackname.length > 35) {
+                return `${trackname.substring(0, num)}...`
+            }
+            else return trackname
+        }
+        let newName = nameShortened(this.props.track.name, 35);
+        let newAlbum = nameShortened(this.props.track.album, 35)
+        return (
             <div className="Track">
                 <div className="Track-information">
                     <h3>
-                        {this.props.track.name}
+                        {newName}
                     </h3>
                     <p>
-                        {this.props.track.artist}        |  
-                        {this.props.track.album} 
+                        {this.props.track.artist}        |
+                        {newAlbum}
                     </p>
                 </div>
-                    {getButton}      
+                {getButton}
             </div>
         )
     }

@@ -13,11 +13,11 @@ export class Playlist extends React.Component {
         this.props.onNameChange(e.target.value)
     }
     render() {
-        return(
+        return (
             <div className="Playlist">
-                <input onChange={this.handleNameChange} />
-                <TrackList tracks={this.props.playlistTracks} onRemove={this.props.removeTrack} isRemoval="true"/>
-                <button className="Playlist-save" onClick = {this.props.onSave}>SAVE TO SPOTIFY</button>
+                <input onChange={this.handleNameChange} placeholder="New Playlist" />
+                <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval="true" />
+                <button className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</button>
             </div>
         )
     }
