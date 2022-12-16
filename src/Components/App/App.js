@@ -5,6 +5,7 @@ import { SearchBar } from '../SearchBar/SearchBar';
 import { SearchResults } from '../SearchResults/SearchResults'
 import { Playlist } from '../Playlist/Playlist'
 import React from 'react';
+import { Spotify } from './../../util/Spotify';
 
 class App extends React.Component {
   constructor(props) {
@@ -82,8 +83,11 @@ class App extends React.Component {
     console.log(trackURIs);
   }
 
-  search(term) {
-    console.log(term);
+  async search(term) {
+    let result = await Spotify.search(term);
+    console.log(result);
+    this.setState({ searchResults: result })
+    console.log(this.state.searchResults)
   }
 
   render() {
