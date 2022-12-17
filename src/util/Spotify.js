@@ -3,7 +3,7 @@ const { SearchBar } = require("../Components/SearchBar/SearchBar");
 let accessToken = ""
 let expiry = "";
 const clientId = "3d42d9bdc09b493baf8041ff961669ef";
-const redirectURI = "http://localhost:3000/";
+const redirectURI = "https://selectACheekyBassline.surge.sh";
 
 const Spotify = {
     getAccessToken() {
@@ -12,11 +12,12 @@ const Spotify = {
             console.log('first if');
             return accessToken;
         }
-        if (window.location.href === "http://localhost:3000/") {
+        if (window.location.href === "https://selectacheekybassline.surge.sh/") {
             console.log('second if statement');
             window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`
         }
         if (accessToken === "") {
+            console.log('third if statement');
             //const url = "https://example.com/callback#access_token=NwAExzBV3O2Tk&token_type=Bearer&expires_in=3600&state=123";
             const url = window.location.href;
             console.log(url)
@@ -33,12 +34,28 @@ const Spotify = {
         }
     },
     async savePlaylist(playlist, URIs) {
-        if (playlist === "" || URIs === []) return;
+        //Params
         let userId = "";
         let headers = {
             Authorization: `Bearer ${accessToken}`
         }
-        let getUser = await fetch(`	https://api.spotify.com/v1/me`, {
+        //check content is popluated
+        if (playlist === "" || URIs === []) return;
+        //Check if playlist exists
+        /*
+        let checkPlaylist = await fetch(
+            `https://api.spotify.com/v1/me/playlists`,
+            { headers: headers }
+        );
+        let checkPlaylistRes = await checkPlaylist.json();
+        let existingPlaylists = [];
+        console.log(checkPlaylistRes.items[0]);
+        let checkPlaylistRes2 = checkPlaylistRes.items.map(playlistMap => existingPlaylists.push(playlistMap.name));
+        console.log(await checkPlaylistRes2.json());
+        */
+
+        //Create playlist
+        let getUser = await fetch(`https://api.spotify.com/v1/me`, {
             headers: headers
         });
         console.log(playlist)
@@ -85,4 +102,4 @@ const Spotify = {
 };
 
 Spotify.getAccessToken();
-module.exports = { Spotify }
+export { Spotify }
