@@ -5,6 +5,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+h3 {
+  font-size: 1em;
+}
+
 body,
 html,
 #root {
@@ -51,9 +55,13 @@ h2 {
   width: 100%;
 }
 
-@media only screen and (max-width: 1020px) {
+@media only screen and (max-width: 1080px) {
   .App-playlist {
     align-items: center;
     flex-direction: column;
   }
+  .h3 {
+    font-size: 1em;
+  }
 }
+
