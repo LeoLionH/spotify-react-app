@@ -3,16 +3,17 @@ const { SearchBar } = require("../Components/SearchBar/SearchBar");
 let accessToken = ""
 let expiry = "";
 const clientId = "3d42d9bdc09b493baf8041ff961669ef";
-const redirectURI = "https://selectACheekyBassline.surge.sh";
+const redirectURI = process.env.REACT_APP_URL;
+console.log(process.env.REACT_APP_URL);
 
 const Spotify = {
-    getAccessToken() {
+    async getAccessToken() {
         console.log('script ran')
         if (accessToken !== "") {
             console.log('first if');
             return accessToken;
         }
-        if (window.location.href === "https://selectacheekybassline.surge.sh/") {
+        if (window.location.href === process.env.REACT_APP_URL) {
             console.log('second if statement');
             window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`
         }
